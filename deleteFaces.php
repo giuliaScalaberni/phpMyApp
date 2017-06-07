@@ -6,9 +6,16 @@ try{
 catch(PDOException $e){
   echo 'CONNECTION FAILED: '.$e->getMessage();
 }
-  $stmt = $connect->prepare("DELETE FROM snap WHERE userId='".$_POST['personId']."'");
+$id=$_POST['personId'];
+  $stmt = $connect->prepare("DELETE FROM snap WHERE userId='".$id."'");
   if ($stmt->execute()) {
-      echo 'Well done!';
+    $stmt2 = $connect->prepare("UPDATE utente SET SpeedEntry=0 WHERE persistedId='".$id."'");
+      if ($stmt2->execute())
+        echo 'Well done!';
+        else 
+
+          print_r($stmt2->errorInfo());
+
   }
   else {
 

@@ -6,10 +6,10 @@ try{
 catch(PDOException $e){
   echo 'CONNECTION FAILED: '.$e->getMessage();
 }
-$id=$_POST['personId'];
-  $stmt = $connect->prepare("DELETE FROM snap WHERE userId='".$id."'");
+
+  $stmt = $connect->prepare("DELETE FROM snap WHERE userId IN (SELECT persistedId FROM utente WHERE groupId='".$_POST['groupId']."')");
   if ($stmt->execute()) {
-    $stmt2 = $connect->prepare("UPDATE utente SET SpeedEntry=0 WHERE persistedId='".$id."'");
+    $stmt2 = $connect->prepare("UPDATE utente SET SpeedEntry=0 WHERE groupId='".$_POST['groupId']."'");
       if ($stmt2->execute())
         echo 'Well done!';
         else

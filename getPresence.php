@@ -1,9 +1,20 @@
+<?php
+try{
+  $connect=new PDO('mysql:dbname=PhotoEntry;localhost','root', 'root');
+
+}
+catch(PDOException $e){
+  echo 'CONNECTION FAILED: '.$e->getMessage();
+}
+  $stmt = $connect->prepare("SELECT azione, data_ora FROM presenza INNER JOIN utente ON utente.persistedId=presenza.persistedId  WHERE presenza.persistedId='".$_POST['personId']."' ORDER BY data_ora DESC");
+  if ($stmt->execute()) {
+  //  header('Content-Type: application/json');
+      echo json_encode($stmt->fetchAll());
 
 
-SELECT azione, data_ora FROM presenza INNER JOIN utente ON utente.persistedId=presenza.persistedId
-WHERE presenza.persistedId='29e04ce9-3b92-4f5d-9d01-59857307ba60'
-ORDER BY data_ora DESC
+  }
+  else {
 
-SELECT azione, data_ora FROM presenza INNER JOIN utente ON utente.persistedId=presenza.persistedId
-where utente.SpeedEntry=1
-ORDER BY data_ora DESC
+    print_r($stmt->errorInfo());
+  }
+ ?>

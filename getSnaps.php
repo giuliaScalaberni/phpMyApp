@@ -8,7 +8,7 @@ catch(PDOException $e){
 }
   $stmt = $connect->prepare("SELECT * FROM snap WHERE userId='".$_POST['personId']."'");
   if ($stmt->execute()) {
-    header('Content-Type: application/json');
+  //  header('Content-Type: application/json');
       echo json_encode($stmt->fetchAll());
 
 

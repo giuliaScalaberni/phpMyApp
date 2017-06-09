@@ -6,9 +6,9 @@ try{
 catch(PDOException $e){
   echo 'CONNECTION FAILED: '.$e->getMessage();
 }
-  $stmt = $connect->prepare("SELECT email FROM utente WHERE persistedId='".$_POST['personId']"'");
+  $stmt = $connect->prepare("SELECT email FROM utente WHERE persistedId='".$_POST['personId']."'");
   if ($stmt->execute()) {
-   //header('Content-Type: application/json');
+  //  header('Content-Type: application/json');
       echo json_encode($stmt->fetchAll());
 
 

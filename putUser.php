@@ -5,10 +5,11 @@
 	catch(PDOException $e){
 		echo 'CONNECTION FAILED: '.$e->getMessage();
 	}
-    $stmt = $connect->prepare("INSERT INTO utente (nome, persistedId, groupId) VALUES (:nome, :pers, :idGr)");
+    $stmt = $connect->prepare("INSERT INTO utente (nome, persistedId, groupId, email) VALUES (:nome, :pers, :idGr, :email)");
     $stmt->bindValue(':nome', $_POST['nome']);
     $stmt->bindValue(':pers',$_POST['pers']);
 		$stmt->bindValue(':idGr', $_POST['group']);
+		$stmt->bindValue(':email', $_POST['email']);
     if ($stmt->execute()) {
 
 
